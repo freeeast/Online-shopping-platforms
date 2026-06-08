@@ -162,11 +162,3 @@ Current limitations:
 - Backend file upload storage is local disk based
 - Monolithic route file has high coupling as features grow
 
-## 10. Suggested future evolution
-
-- Split backend by domains (auth/catalog/order/payment)
-- Introduce service/repository layers for maintainability
-- Move uploads to object storage (S3/GCS)
-- Replace SQLite with managed PostgreSQL for concurrency
-- Add automated test suites (API integration + E2E)
-- Add CI pipeline (lint/test/security scan) before deployment
