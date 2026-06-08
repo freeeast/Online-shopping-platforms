@@ -3,24 +3,13 @@
 ZStore is a full-stack e-commerce demo built for Web Programming and Internet Security.  
 The project focuses on both product features (catalog, cart, orders, admin) and security hardening (XSS, CSRF, session security, input validation, payment webhook integrity checks).
 
-## 1) What to upload to GitHub
-
-Upload this `submission` folder as a standalone repository.
-
-Recommended structure:
+## 1) What to upload
 
 - `backend/` - Express server, API, SQLite schema/bootstrap logic, middleware
 - `frontend/public/` - static pages, CSS, client-side JavaScript
 - `docs/` - deployment and operation docs
 - `README.md` - project overview and quick start
 - `.gitignore` - excludes secrets and local runtime artifacts
-
-Do **not** upload:
-
-- `.env` (contains secrets)
-- `node_modules/`
-- `backend/zstore.db` (local DB snapshot, not source code)
-- runtime uploads in `frontend/public/uploads/` and `frontend/public/thumbnails/`
 
 ## 2) Tech stack
 
@@ -141,15 +130,7 @@ Then copy the generated signing secret into:
 
 See full step-by-step guide in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) (Ubuntu VM + Nginx + systemd + HTTPS + Stripe webhook setup).
 
-## 9) Suggested GitHub showcase assets
+## 9) Demo page
+if you want to check the real web page, here is the example:
+136.112.51.118
 
-To improve recruiter readability, add:
-
-- project screenshots in `docs/screenshots/`
-- short architecture diagram in `docs/`
-- demo video link (YouTube/Bilibili) in this README
-- key API examples and threat-mitigation notes
-
-## 10) License
-
-For job portfolio use, add a license file (recommended: MIT) before publishing.
