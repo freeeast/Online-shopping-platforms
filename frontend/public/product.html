@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details - ZStore</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <header class="navbar navbar-dark bg-dark sticky-top p-0 shadow">
+      <div class="container-fluid">
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn btn-outline-light border-0" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <a class="navbar-brand fw-bold me-0" href="index.html">ZStore</a>
+        </div>
+
+        <form class="d-none d-md-flex w-50 mx-auto" action="#" method="get">
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="search"
+              name="q"
+              maxlength="200"
+              placeholder="Search for products..."
+              aria-label="Search"
+            />
+            <button class="btn btn-warning" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+
+        <div class="d-flex align-items-center gap-3">
+          <div class="text-white small d-none d-sm-block">
+            <i class="fas fa-user me-1"></i>
+            <span id="auth-identity" class="fw-semibold">guest</span>
+            <span class="mx-1">|</span>
+            <a
+              id="auth-login-link"
+              href="login.html"
+              class="text-white text-decoration-none"
+              >Login</a
+            >
+            <span class="mx-1">|</span>
+            <a
+              id="auth-register-link"
+              href="register.html"
+              class="text-white text-decoration-none"
+              >Sign Up</a
+            >
+            <a
+              id="auth-change-password-link"
+              href="change-password.html"
+              class="text-white text-decoration-none d-none ms-2"
+              >Password</a
+            >
+            <a
+              id="auth-my-orders-link"
+              href="my-orders.html"
+              class="text-white text-decoration-none d-none ms-2"
+              >My Orders</a
+            >
+            <a
+              id="auth-admin-link"
+              href="admin.html"
+              class="text-white text-decoration-none d-none ms-2"
+              >Admin</a
+            >
+            <button
+              type="button"
+              id="auth-logout-btn"
+              class="btn btn-link btn-sm text-white text-decoration-none p-0 ms-2 d-none"
+            >
+              Logout
+            </button>
+          </div>
+
+          <div class="cart-wrapper position-relative">
+            <button class="btn btn-outline-light position-relative">
+              <i class="fas fa-shopping-cart"></i> Cart
+              <span
+                id="cart-count-badge"
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                style="display: none"
+                >0</span
+              >
+            </button>
+            <div class="cart-dropdown card shadow">
+              <div class="card-body p-2">
+                <ul id="cart-items" class="list-unstyled mb-2"></ul>
+                <div class="d-flex justify-content-between fw-bold mb-2">
+                  <span>Total:</span>
+                  <span id="cart-total">$0.00</span>
+                </div>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-outline-danger w-50 btn-sm" id="cart-clear">
+                    Clear
+                  </button>
+                  <button class="btn btn-success w-50 btn-sm" type="button" id="cart-checkout">
+                    Checkout
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="bg-light border-bottom py-2">
+      <div class="container-fluid d-flex gap-4 overflow-auto">
+        <a href="#" class="text-secondary text-decoration-none fw-bold small"
+          ><i class="fas fa-fire text-danger me-1"></i>Trends</a
+        >
+        <a href="#" class="text-secondary text-decoration-none fw-bold small"
+          ><i class="fas fa-tags text-primary me-1"></i>Discount</a
+        >
+        <a href="#" class="text-secondary text-decoration-none fw-bold small"
+          ><i class="fas fa-calendar-alt text-warning me-1"></i>Events</a
+        >
+        <a href="#" class="text-secondary text-decoration-none fw-bold small"
+          ><i class="fas fa-recycle text-success me-1"></i>Second-hand</a
+        >
+      </div>
+    </nav>
+
+    <div class="d-flex flex-grow-1" id="wrapper">
+      <aside class="bg-white border-end" id="sidebar-wrapper">
+        <div class="list-group list-group-flush" id="detail-category-list">
+          <a
+            href="index.html"
+            class="list-group-item list-group-item-action bg-light fw-bold"
+            >Categories</a
+          >
+          <!-- dynamic categories on detail page (optional) -->
+        </div>
+      </aside>
+
+      <main id="page-content-wrapper" class="w-100 bg-light p-4">
+        <div class="container-fluid">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" id="detail-breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item">
+                <a href="index.html" id="detail-breadcrumb-category">Category</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page" id="detail-breadcrumb-name">
+                Product
+              </li>
+            </ol>
+          </nav>
+
+          <section class="card shadow-sm mb-5">
+            <div class="row g-0">
+              <div class="col-md-6 bg-white border-end p-5">
+                <div class="detail-img-box">
+                  <img
+                    id="product-image"
+                    src="assets/images/Sony_Alpha_Camera.jpeg"
+                    alt="Product image"
+                    class="detail-img-fit"
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="card-body p-4 p-lg-5">
+                  <span class="badge bg-warning text-dark mb-2" id="product-badge"
+                    >Product</span
+                  >
+                  <h1 class="card-title fw-bold" id="product-name">
+                    Product Name
+                  </h1>
+                  <p class="text-muted small" id="product-sku">ID: -</p>
+
+                  <h2 class="text-danger fw-bold my-3" id="product-price">
+                    $0.00
+                  </h2>
+                  <div class="mb-3">
+                    <span class="badge bg-warning text-dark me-2">
+                      <i class="fas fa-star me-1"></i>
+                      <span id="product-rating-avg">10.00</span>/10
+                    </span>
+                    <span id="product-rating-meta" class="small text-muted"
+                      >0 comments, default 10/10 rule enabled</span
+                    >
+                  </div>
+
+                  <p class="card-text text-secondary mb-4" id="product-description">
+                    Product description will be loaded from the database.
+                  </p>
+
+                  <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="input-group qty-width">
+                      <span class="input-group-text">Qty</span>
+                      <input
+                        type="number"
+                        id="detail-qty"
+                        class="form-control"
+                        value="1"
+                        min="1"
+                        max="9999"
+                        required
+                        aria-label="Quantity"
+                      />
+                    </div>
+                    <button
+                      id="add-to-cart-detail"
+                      class="btn btn-dark btn-lg flex-grow-1 add-to-cart-btn"
+                  type="button"
+                  data-qty-input="#detail-qty"
+                    >
+                      <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                    </button>
+                  </div>
+
+                  <div class="small text-muted border-top pt-3">
+                    <p class="mb-1">
+                      <i class="fas fa-truck me-2"></i>Free Shipping
+                    </p>
+                    <p class="mb-0">
+                      <i class="fas fa-undo me-2"></i>30 Days Return
+                    </p>
+                  </div>
+
+                  <div class="border-top pt-3 mt-3">
+                    <h3 class="h6">Rate this product (within 7 days after paid order)</h3>
+                    <p id="review-eligibility-text" class="small text-muted">
+                      Sign in to submit a rating and comment.
+                    </p>
+                    <form id="review-form" class="d-none">
+                      <div class="mb-2">
+                        <label for="review-rating" class="form-label form-label-sm"
+                          >Rating (1-10)</label
+                        >
+                        <input
+                          type="number"
+                          id="review-rating"
+                          min="1"
+                          max="10"
+                          step="1"
+                          value="10"
+                          class="form-control form-control-sm"
+                          required
+                        />
+                      </div>
+                      <div class="mb-2">
+                        <label for="review-comment" class="form-label form-label-sm">Comment</label>
+                        <textarea
+                          id="review-comment"
+                          rows="3"
+                          maxlength="500"
+                          class="form-control form-control-sm"
+                          placeholder="Share your feedback"
+                        ></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-outline-dark btn-sm">Submit Review</button>
+                    </form>
+                    <div id="review-submit-msg" class="small mt-2 text-muted"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card shadow-sm mb-4">
+            <div class="card-body">
+              <h3 class="h5 mb-3">Recent Comments (Top 5)</h3>
+              <div id="product-comments-empty" class="text-muted small">
+                No comments yet.
+              </div>
+              <div id="product-comments-list" class="d-grid gap-3"></div>
+            </div>
+          </section>
+
+          <section class="ai-recommendation mt-5">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <i class="fas fa-robot text-primary fa-lg"></i>
+              <h3 class="h4 mb-0">AI Recommended for you</h3>
+            </div>
+            <div
+              class="alert alert-info border-0 d-flex align-items-center"
+              role="alert"
+            >
+              <i class="fas fa-info-circle me-2"></i>
+              <div>
+                Because you are looking at professional cameras, you might also
+                need:
+              </div>
+            </div>
+
+            <div class="row row-cols-2 row-cols-md-4 g-4">
+              <div class="col">
+                <div class="card h-100 shadow-sm product-card-hover">
+                  <div class="recommend-img-box">
+                    <img
+                      src="assets/images/128GB_SD_Card.jpeg"
+                      alt="128GB SD Card"
+                      class="product-img-fit"
+                    />
+                  </div>
+                  <div class="card-body text-center">
+                    <h6 class="card-title">128GB SD Card</h6>
+                    <p class="text-danger fw-bold mb-2">$40.00</p>
+                    <button class="btn btn-outline-dark btn-sm w-100">
+                      Add
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="card h-100 shadow-sm product-card-hover">
+                  <div class="recommend-img-box">
+                    <img
+                      src="assets/images/Carbon_Tripod.jpeg"
+                      alt="Carbon Tripod"
+                      class="product-img-fit"
+                    />
+                  </div>
+                  <div class="card-body text-center">
+                    <h6 class="card-title">Carbon Tripod</h6>
+                    <p class="text-danger fw-bold mb-2">$120.00</p>
+                    <button class="btn btn-outline-dark btn-sm w-100">
+                      Add
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <footer class="site-footer text-center">
+      <div class="container">
+        <p class="mb-0">&copy; 2026 ZStore. IEMS5718 Assignment.</p>
+      </div>
+    </footer>
+
+    <script src="assets/js/sidebar-toggle.js"></script>
+    <script src="assets/js/xss-safe.js"></script>
+    <script src="assets/js/csrf-client.js"></script>
+    <script src="assets/js/auth-banner.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/product.js"></script>
+  </body>
+</html>

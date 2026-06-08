@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZStore</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <header class="navbar navbar-dark bg-dark sticky-top p-0 shadow">
+      <div class="container-fluid">
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn btn-outline-light border-0" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <a class="navbar-brand fw-bold me-0" href="#">ZStore</a>
+        </div>
+
+        <form class="d-none d-md-flex w-50 mx-auto" action="#" method="get">
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="search"
+              name="q"
+              maxlength="200"
+              placeholder="Search for products..."
+              aria-label="Search"
+            />
+            <button class="btn btn-warning" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+
+        <div class="d-flex align-items-center gap-3">
+          <div class="text-white small d-none d-sm-block">
+            <i class="fas fa-user me-1"></i>
+            <span id="auth-identity" class="fw-semibold">guest</span>
+            <span class="mx-1">|</span>
+            <a
+              id="auth-login-link"
+              href="login.html"
+              class="text-white text-decoration-none"
+              >Login</a
+            >
+            <span class="mx-1">|</span>
+            <a
+              id="auth-register-link"
+              href="register.html"
+              class="text-white text-decoration-none"
+              >Sign Up</a
+            >
+            <a
+              id="auth-change-password-link"
+              href="change-password.html"
+              class="text-white text-decoration-none d-none ms-2"
+              >Password</a
+            >
+            <a
+              id="auth-my-orders-link"
+              href="my-orders.html"
+              class="text-white text-decoration-none d-none ms-2"
+              >My Orders</a
+            >
+            <a
+              id="auth-admin-link"
+              href="admin.html"
+              class="text-white text-decoration-none d-none ms-2"
+              >Admin</a
+            >
+            <button
+              type="button"
+              id="auth-logout-btn"
+              class="btn btn-link btn-sm text-white text-decoration-none p-0 ms-2 d-none"
+            >
+              Logout
+            </button>
+          </div>
+
+          <div class="cart-wrapper position-relative">
+            <button class="btn btn-outline-light position-relative">
+              <i class="fas fa-shopping-cart"></i> Cart
+              <span
+                id="cart-count-badge"
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                style="display: none"
+              >
+                0
+              </span>
+            </button>
+            <div class="cart-dropdown card shadow">
+              <div class="card-body p-2">
+                <ul id="cart-items" class="list-unstyled mb-2"></ul>
+                <div class="d-flex justify-content-between fw-bold mb-2">
+                  <span>Total:</span>
+                  <span id="cart-total">$0.00</span>
+                </div>
+                <div class="mb-2">
+                  <label for="cart-voucher-code" class="form-label form-label-sm mb-1"
+                    >Voucher code</label
+                  >
+                  <input
+                    id="cart-voucher-code"
+                    type="text"
+                    maxlength="64"
+                    class="form-control form-control-sm"
+                    placeholder="e.g. EASTER12"
+                  />
+                  <div id="cart-voucher-feedback" class="small text-muted mt-1"></div>
+                </div>
+                <div class="d-flex justify-content-between text-success small mb-2">
+                  <span>Discount:</span>
+                  <span id="cart-discount">-$0.00</span>
+                </div>
+                <div class="d-flex justify-content-between fw-bold mb-2">
+                  <span>Payable:</span>
+                  <span id="cart-total-after-discount">$0.00</span>
+                </div>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-outline-danger w-50 btn-sm" id="cart-clear">
+                    Clear
+                  </button>
+                  <button class="btn btn-success w-50 btn-sm" type="button" id="cart-checkout">
+                    Checkout
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="bg-light border-bottom py-2">
+      <div class="container-fluid d-flex gap-4 overflow-auto">
+        <a href="#" class="text-secondary text-decoration-none fw-bold small"
+          ><i class="fas fa-fire text-danger me-1"></i>Trends</a
+        >
+        <a href="#" class="text-secondary text-decoration-none fw-bold small"
+          ><i class="fas fa-tags text-primary me-1"></i>Discount</a
+        >
+        <a href="#" class="text-secondary text-decoration-none fw-bold small"
+          ><i class="fas fa-calendar-alt text-warning me-1"></i>Events</a
+        >
+        <a href="#" class="text-secondary text-decoration-none fw-bold small"
+          ><i class="fas fa-recycle text-success me-1"></i>Second-hand</a
+        >
+      </div>
+    </nav>
+
+    <div class="d-flex flex-grow-1" id="wrapper">
+      <aside class="bg-white border-end" id="sidebar-wrapper">
+        <div class="list-group list-group-flush" id="category-list">
+          <a
+            href="index.html"
+            class="list-group-item list-group-item-action bg-light fw-bold"
+            >Categories</a
+          >
+          <!-- Categories will be populated dynamically -->
+        </div>
+      </aside>
+
+      <main id="page-content-wrapper" class="w-100 bg-light p-4">
+        <div class="container-fluid">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" id="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-category">
+                All Categories
+              </li>
+            </ol>
+          </nav>
+
+          <h2 class="mb-4" id="product-section-title">Products</h2>
+
+          <section
+            id="product-list"
+            class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4"
+          >
+            <!-- Products will be populated dynamically -->
+          </section>
+          <div class="d-flex justify-content-center mt-4">
+            <button id="load-more-products" class="btn btn-outline-secondary d-none">
+              Load more products
+            </button>
+          </div>
+          <p id="products-scroll-status" class="text-center small text-muted mt-2"></p>
+
+          <section class="mt-5">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="h5 mb-0">My Recent 5 Orders</h3>
+              <a href="my-orders.html" class="btn btn-outline-dark btn-sm">Manage Orders</a>
+            </div>
+            <div id="my-orders-empty" class="alert alert-light border text-muted small">
+              Sign in to view your purchase history.
+            </div>
+            <div class="table-responsive d-none" id="my-orders-table-wrap">
+              <table class="table table-sm table-striped align-middle">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Created</th>
+                    <th>Items</th>
+                  </tr>
+                </thead>
+                <tbody id="my-orders-tbody"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <footer class="site-footer text-center">
+      <div class="container">
+        <p class="mb-0">&copy; 2026 ZStore. IEMS5718 Assignment.</p>
+      </div>
+    </footer>
+
+    <script src="assets/js/sidebar-toggle.js"></script>
+    <script src="assets/js/xss-safe.js"></script>
+    <script src="assets/js/csrf-client.js"></script>
+    <script src="assets/js/auth-banner.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

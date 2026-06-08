@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - ZStore</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light d-flex align-items-center min-vh-100">
+    <div class="container" style="max-width: 420px">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h1 class="h4 mb-3">Create account</h1>
+          <p class="small text-muted">
+            Email must be unique. New accounts are not admins.
+          </p>
+          <form id="form-register">
+            <div class="mb-3">
+              <label for="reg-email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="reg-email"
+                class="form-control"
+                required
+                maxlength="254"
+                autocomplete="username"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="reg-name" class="form-label">Display name (optional)</label>
+              <input
+                type="text"
+                id="reg-name"
+                class="form-control"
+                maxlength="100"
+                autocomplete="name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="reg-password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="reg-password"
+                class="form-control"
+                required
+                minlength="8"
+                maxlength="128"
+                autocomplete="new-password"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="reg-password2" class="form-label">Confirm password</label>
+              <input
+                type="password"
+                id="reg-password2"
+                class="form-control"
+                required
+                minlength="8"
+                maxlength="128"
+                autocomplete="new-password"
+              />
+            </div>
+            <div id="reg-msg" class="text-danger small mb-3"></div>
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+          </form>
+          <p class="small mt-3 mb-0 text-center">
+            Already have an account? <a href="login.html">Sign in</a>
+            &middot;
+            <a href="change-password.html">Change password</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/csrf-client.js"></script>
+    <script src="assets/js/register.js"></script>
+  </body>
+</html>
