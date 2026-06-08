@@ -1,4 +1,4 @@
-# ZStore (IEMS5718) - Secure Web Store Demo
+# ZStore - Secure Web Store
 
 ZStore is a full-stack e-commerce demo built for Web Programming and Internet Security.  
 The project focuses on both product features (catalog, cart, orders, admin) and security hardening (XSS, CSRF, session security, input validation, payment webhook integrity checks).
