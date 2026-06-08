@@ -3,7 +3,7 @@
 ZStore is a full-stack e-commerce demo built for Web Programming and Internet Security.  
 The project focuses on both product features (catalog, cart, orders, admin) and security hardening (XSS, CSRF, session security, input validation, payment webhook integrity checks).
 
-## 1) What to upload
+## 1) Files contain
 
 - `backend/` - Express server, API, SQLite schema/bootstrap logic, middleware
 - `frontend/public/` - static pages, CSS, client-side JavaScript
